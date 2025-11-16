@@ -39,6 +39,7 @@ except LookupError:
         # If punkt_tab isn't available via downloader, ignore and rely on 'punkt'
         pass
 
+nltk.download('stopwords')
 
 # Import project modules
 from src.preprocessing import preprocess_pipeline, clean_text, tokenize_and_stem, vectorize_text
