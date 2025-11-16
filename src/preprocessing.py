@@ -13,10 +13,16 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+import nltk
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import warnings
 
 warnings.filterwarnings('ignore')
+
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
 
 
 def load_sms_data(filepath: str) -> Tuple[List[str], List[int], List[str]]:
