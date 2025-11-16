@@ -23,6 +23,14 @@ try:
     nltk.data.find("tokenizers/punkt")
 except LookupError:
     nltk.download("punkt")
+# Backwards-compat: ensure 'punkt_tab' if any legacy pickles reference it
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    try:
+        nltk.download("punkt_tab")
+    except Exception:
+        pass
 
 
 def load_sms_data(filepath: str) -> Tuple[List[str], List[int], List[str]]:
