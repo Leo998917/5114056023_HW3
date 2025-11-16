@@ -22,11 +22,22 @@ import pickle
 import warnings
 from typing import Dict, Tuple, Optional
 import nltk
+import matplotlib.pyplot as plt
 
 try:
     nltk.data.find("tokenizers/punkt")
 except LookupError:
     nltk.download("punkt")
+# Backwards-compat: some deployments reference a non-standard 'punkt_tab' resource.
+# Attempt to ensure it exists as well to avoid LookupError during unpickling or tokenization.
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    try:
+        nltk.download("punkt_tab")
+    except Exception:
+        # If punkt_tab isn't available via downloader, ignore and rely on 'punkt'
+        pass
 
 
 # Import project modules
