@@ -29,19 +29,7 @@ try:
 except LookupError:
     nltk.download("punkt")
 # Backwards-compat: some deployments reference a non-standard 'punkt_tab' resource.
-# Attempt to ensure it exists as well to avoid LookupError during unpickling or tokenization.
-try:
-    nltk.data.find("tokenizers/punkt_tab")
-except LookupError:
-    try:
-        nltk.download("punkt_tab")
-    except Exception:
-        # If punkt_tab isn't available via downloader, ignore and rely on 'punkt'
-        pass
 
-nltk.download('stopwords')
-
-# Import project modules
 from src.preprocessing import preprocess_pipeline, clean_text, tokenize_and_stem, vectorize_text
 from src.models import load_model, evaluate_model
 from src.visualization import (
