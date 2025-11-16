@@ -14,6 +14,42 @@ Date: 2025-11-16
 """
 
 import streamlit as st
+
+# ============================================================================
+# vvvvvvvv 強制 NLTK 資源下載 (請加在這裡) vvvvvvvv
+# ============================================================================
+import nltk
+
+@st.cache_resource
+def download_nltk_resources():
+    """Ensures NLTK resources are available."""
+    try:
+        nltk.data.find("tokenizers/punkt")
+    except LookupError:
+        nltk.download("punkt")
+    
+    # 從您舊的 app.py 中保留，以防萬一
+    try:
+        nltk.data.find("tokenizers/punkt_tab")
+    except LookupError:
+        try:
+            nltk.download("punkt_tab")
+        except Exception:
+            pass # 如果 'punkt_tab' 下載失敗，就忽略
+    
+    # 這是最重要的：下載 stopwords
+    try:
+        nltk.data.find("corpora/stopwords")
+    except LookupError:
+        nltk.download("stopwords")
+
+# 應用程式啟動時立刻執行下載
+download_nltk_resources()
+# ============================================================================
+# ^^^^^^^^^^ NLTK 資源下載區塊結束 ^^^^^^^^^^
+# ============================================================================
+
+
 import pandas as pd
 import numpy as np
 from pathlib import Path
