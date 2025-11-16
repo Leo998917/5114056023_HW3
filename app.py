@@ -21,6 +21,13 @@ import glob
 import pickle
 import warnings
 from typing import Dict, Tuple, Optional
+import nltk
+
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
 
 # Import project modules
 from src.preprocessing import preprocess_pipeline, clean_text, tokenize_and_stem, vectorize_text
