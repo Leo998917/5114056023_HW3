@@ -24,12 +24,6 @@ from typing import Dict, Tuple, Optional
 import nltk
 import matplotlib.pyplot as plt
 
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("punkt")
-# Backwards-compat: some deployments reference a non-standard 'punkt_tab' resource.
-
 from src.preprocessing import preprocess_pipeline, clean_text, tokenize_and_stem, vectorize_text
 from src.models import load_model, evaluate_model
 from src.visualization import (
